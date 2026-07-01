@@ -1,0 +1,12 @@
+numpy
+pandas
+matplotlib
+scipy
+astropy
+astroquery
+lightkurve
+tqdm
+joblib
+scikit-learn
+jupyter
+ipykernel
