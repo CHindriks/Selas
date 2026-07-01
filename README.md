@@ -29,8 +29,8 @@ SELAS/                         # git repo root
 │   ├── full_pipeline_image.pdf # original full-pipeline figure
 │   └── full_pipeline_image.png # README-friendly rendered figure
 ├── Notebooks/
-│   ├── Run_SELAS_single_TIC.ipynb
-│   └── Flare_Distribution_Model_corrected.ipynb
+│   ├── Run_SELAS_single_TIC.ipynb       # Runs the pipeline for TIC ids 
+│   └── Flare_Distribution_Model.ipynb   # Generates planet-induced flare arrival times
 └── Selas/                      # source modules used by notebooks and runner
     ├── selas_runner.py         # full TIC pipeline runner
     ├── lightcurve_detrender.py # TESS light-curve detrending
