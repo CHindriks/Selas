@@ -12,9 +12,9 @@ SELAS is organized as a modular analysis workflow for TIC targets. The main runn
 
 ## Full pipeline plot
 
-![SELAS full pipeline plot](Assets/full_pipeline_image.pdf)
+![SELAS full pipeline plot](Assets/full_pipeline_image.png)
 
-The original vector version is included at [`Assets/full_pipeline_image.pdf`](Assets/full_pipeline_image.pdf).
+The original vector version is included at [`Assets/full_pipeline_image.png`](Assets/full_pipeline_image.png).
 
 ## Layout
 
