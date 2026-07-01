@@ -45,12 +45,10 @@ SELAS/                         # git repo root
 Clone your repository and install the dependencies into a clean Python environment.
 
 ```bash
-git clone <your-selas-repo-url> SELAS
+git clone https://github.com/CHindriks/Selas SELAS
 cd SELAS
 
 python3 -m venv .venv
-source .venv/bin/activate      # Windows PowerShell: .venv\Scripts\Activate.ps1
-python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 ```
 
