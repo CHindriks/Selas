@@ -9,6 +9,7 @@ from __future__ import annotations
 from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
+import warnings
 
 import numpy as np
 import pandas as pd
@@ -1436,6 +1437,34 @@ def apply_ma10_residual_filter(
     return pd.DataFrame(kept_rows).reset_index(drop=True), pd.DataFrame(removed_rows).reset_index(drop=True)
 
 
+def _describe_rotation_or_std(ts_df: pd.DataFrame, sigma_col: str = "local_sigma") -> str:
+    """Return a brief rotation or residual/std summary for warning messages."""
+    rotation_keys = [
+        ("known_rotation_period_hr", "hr"),
+        ("known_rotation_period_days", "d"),
+        ("rotation_period_hr", "hr"),
+        ("rotation_period_days", "d"),
+        ("stellar_rotation_period", "d"),
+    ]
+    for key, unit in rotation_keys:
+        if key in ts_df.columns:
+            value = pd.to_numeric(ts_df[key], errors="coerce")
+            if len(value) and np.isfinite(value.iloc[0]):
+                return f"{key}={float(value.iloc[0]):.3f}{unit}"
+
+    if "final_residual" in ts_df.columns:
+        std_value = float(np.nanstd(ts_df["final_residual"].to_numpy(dtype=float)))
+        if np.isfinite(std_value):
+            return f"std(final_residual)={std_value:.6g}"
+
+    if sigma_col in ts_df.columns:
+        std_value = float(np.nanstd(ts_df[sigma_col].to_numpy(dtype=float)))
+        if np.isfinite(std_value):
+            return f"std({sigma_col})={std_value:.6g}"
+
+    return "no rotation/std metadata available"
+
+
 def _safe_int(value: Any, fallback: Optional[int] = None) -> Optional[int]:
     """Convert a value to ``int`` unless it is missing.
 
@@ -2473,6 +2502,15 @@ def run_two_pass_flare_finder(
             print(f"Flares before ma_10 / residual filter: {n_before:,}")
             print(f"Flares after ma_10 / residual filter:  {n_after:,}")
             print(f"Removed:                               {n_before - n_after:,}")
+            if n_before - n_after > n_after:
+                context = _describe_rotation_or_std(ts_df, sigma_col="local_sigma_clean")
+                warning_message = (
+                    "WARNING: unreliable target: more flares were removed than kept by the "
+                    f"ma_10/residual filter ({n_before - n_after:,} removed, {n_after:,} kept). "
+                    f"Rotation/std: {context}."
+                )
+                print(warning_message)
+                warnings.warn(warning_message, RuntimeWarning)
     else:
         final_flares_df = unique_flares_df.copy()
 

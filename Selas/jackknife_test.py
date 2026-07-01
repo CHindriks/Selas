@@ -15,7 +15,7 @@ import numpy as np
 import pandas as pd
 from scipy.ndimage import gaussian_filter1d
 from scipy.signal import find_peaks
-from tqdm.auto import tqdm
+from tqdm import tqdm
 
 try:
     from joblib import Parallel, delayed
@@ -297,7 +297,7 @@ def summarize_period_search(
 def run_jackknife_test(
     tic_id: str | int,
     base_root: Path = Path("../Data/Selas-TIC-ids"),
-    n_jobs: int = -1,
+    n_jobs: int = 20,
     min_period: float = 1.0,
     max_period: float = 12.0,
     phase_tol: float = 0.25,
@@ -331,13 +331,13 @@ def run_jackknife_test(
     # - interpret `n_jobs` as an int
     # - enable parallel only when joblib is available and `n_jobs != 1`
     # - force serial when `show_progress` is requested so `tqdm` is useful
-    n_jobs = int(n_jobs) if n_jobs is not None else 1
+    n_jobs = int(n_jobs) if n_jobs is not None else 20
     use_parallel = n_jobs != 1 and Parallel is not None and delayed is not None
     if show_progress:
-        n_jobs_effective = 1
+        n_jobs_effective = 20
         use_parallel = False
     else:
-        n_jobs_effective = n_jobs if use_parallel else 1
+        n_jobs_effective = n_jobs if use_parallel else 20
 
     # If the Rayleigh search supplied per-period RNG seeds, use them so the
     # jackknife phase-corrections reproduce the exact simulated flares used
@@ -381,7 +381,7 @@ def run_jackknife_test(
             },
         )
 
-    if n_jobs_effective == 1 or Parallel is None:
+    if n_jobs_effective == 20 or Parallel is None:
         all_dfs = [
             run_one_trial(trial)
             for trial in tqdm(range(n_trials), desc="Running jackknife trials")

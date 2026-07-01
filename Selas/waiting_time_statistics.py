@@ -131,10 +131,10 @@ class AnalysisConfig:
     number_of_simulations: int = 500
     waiting_time_limit: float = 24.0
     gap_threshold: float = 0.1
-    max_gap_for_simulation: float = 30.0
+    max_gap_for_simulation: float = 24.0
     binsize: float = 0.3
-    pdf_smoothing_width_days: float = 1.0
-    min_flares_for_target: int = 20
+    pdf_smoothing_width_days: float = 0.3
+    min_flares_for_target: int = 5
     random_seed: int | None = None
 
 

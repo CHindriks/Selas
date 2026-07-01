@@ -487,9 +487,22 @@ def _make_full_pipeline_plot(
     )
     if sigma_vals.size > 0 and np.max(sigma_vals) > 0:
         ax_sigma.set_xlim(0, 1.1 * np.max(sigma_vals))
+        max_v = float(np.max(sigma_vals))
+        # Ensure tick at 3 is always present; choose a reasonable step
+        display_max = max(3.0, max_v)
+        if display_max <= 10:
+            step = 1
+        elif display_max <= 30:
+            step = 2
+        else:
+            step = int(np.ceil(display_max / 10.0))
+        sigma_xticks = np.arange(0, int(np.ceil(display_max)) + 1, step)
+        if 3 not in sigma_xticks:
+            sigma_xticks = np.sort(np.append(sigma_xticks, 3))
     else:
+        # No measured exceedances — show 0..3 so the 3σ tick is visible.
         ax_sigma.set_xlim(0, 1.0)
-    sigma_xticks = np.arange(0, 7, 1)
+        sigma_xticks = np.arange(0, 4, 1)
     ax_sigma.set_xticks(sigma_xticks)
     ax_sigma.set_xlabel(r"RT exceedance [$\sigma$]")
     ax_sigma.set_ylabel("Count")
