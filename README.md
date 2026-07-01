@@ -111,7 +111,7 @@ To run multiple targets:
 ```python
 from selas_runner import load_tic_ids_from_file, run_many_tic_pipelines
 
-tic_ids = load_tic_ids_from_file("All_ids.txt")
+tic_ids = load_tic_ids_from_file("[your_list].txt")
 results = run_many_tic_pipelines(
     tic_ids,
     data_root=DATA_ROOT,
