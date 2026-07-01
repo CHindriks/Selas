@@ -219,10 +219,10 @@ Most knobs live in dataclasses inside the source modules. Import a config class,
 | `number_of_simulations` | `500` | Number of simulated flare sets for waiting-time analysis |
 | `waiting_time_limit` | `24.0` | Maximum waiting time retained, in days |
 | `gap_threshold` | `0.1` | Observing-gap threshold in days |
-| `max_gap_for_simulation` | `30.0` | Largest observing gap eligible for simulated filling |
+| `max_gap_for_simulation` | `24.0` | Largest observing gap eligible for simulated filling |
 | `binsize` | `0.3` | Waiting-time histogram/PDF bin size in days |
-| `pdf_smoothing_width_days` | `1.0` | PDF smoothing width in days |
-| `min_flares_for_target` | `20` | Minimum flares required for the target analysis |
+| `pdf_smoothing_width_days` | `0.3` | PDF smoothing width in days |
+| `min_flares_for_target` | `5` | Minimum flares required for the target analysis |
 
 ### `PeriodicityConfig`
 
@@ -236,7 +236,7 @@ Most knobs live in dataclasses inside the source modules. Import a config class,
 | `smooth_sigma` | `0.1` | Gaussian smoothing width for `-log10(p)` |
 | `n_best` | `3` | Number of non-rotation candidate periods to report |
 | `min_flares_for_rayleigh` | `5` | Minimum flares required before Rayleigh testing |
-| `n_jobs` | `20` | Parallel jobs for supported calculations |
+| `n_jobs` | `-1` | Parallel jobs for supported calculations |
 | `save_figures` | `True` | Save periodicity diagnostic figures |
 | `show_figures` | `True` | Display periodicity diagnostic figures |
 
@@ -252,12 +252,12 @@ See the source docstrings for the full parameter list and lower-level function o
 
 ## Citing
 
-SELAS is free to use and modify. If you use it in academic work, please cite the relevant SELAS paper, thesis, or analysis product associated with your project. Add the exact citation here before public release.
+SELAS is free to use and modify. If you use it in academic work, please cite the relevant SELAS thesis. ON ITS WAY.
 
 ## License
 
 MIT
 
-Copyright (c) 2026 CHindriks
+Copyright (c) 2026 Casper Hindriks
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, subject to the conditions in the included `LICENSE` file.
