@@ -56,8 +56,8 @@ SELAS currently uses the `Selas/` source folder directly from notebooks and scri
 
 ## To run the single-target notebook
 
-```bash
-jupyter notebook Notebooks/Run_SELAS_single_TIC.ipynb
+```python
+python -m notebook Notebooks/Run_SELAS_single_TIC.ipynb
 ```
 
 In the notebook, set:
